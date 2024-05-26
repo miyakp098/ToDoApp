@@ -18,8 +18,8 @@ class ToDoController extends Controller
     {
         // ToDoを取得する
         $toDos = ToDo::get();
-        
-        // 取得したTodoを返却する
+
+        // 取得したToDoを返却する
         return $toDos;
     }
 
@@ -46,7 +46,7 @@ class ToDoController extends Controller
 
         // タイトルをToDoモデルに設定する
         $toDo->title = $request->get('title');
-        
+
         // DBにデータを登録する
         $toDo->save();
     }

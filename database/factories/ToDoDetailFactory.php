@@ -23,7 +23,7 @@ class ToDoDetailFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'completed_flag' => $this->faker->boolean()
+            'completed_flag' => $this->faker->boolean(),
         ];
     }
 }

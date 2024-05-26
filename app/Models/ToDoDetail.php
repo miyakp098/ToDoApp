@@ -9,7 +9,8 @@ class ToDoDetail extends Model
 {
     use HasFactory;
 
-    public function toDo(){
-        return $this ->belongsTo(ToDo::class);
+    public function toDo()
+    {
+        return $this->belongsTo(ToDo::class);
     }
 }
