@@ -14,7 +14,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string'
+            'to_do_id' => 'required|exists:to_dos,id',
+            'name' => 'required|string',
         ];
     }
 }
