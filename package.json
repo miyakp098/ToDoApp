@@ -30,6 +30,7 @@
         "@mui/icons-material": "^5.15.19",
         "@mui/material": "^5.15.18",
         "autoprefixer": "10.4.5",
+        "react-query": "^3.39.3",
         "react-router-dom": "^5.3.4"
     }
 }
