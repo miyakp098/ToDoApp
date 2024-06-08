@@ -17,6 +17,7 @@ function ToDoDetail(props) {
     let toDoDetail = {
         id: props.detail.id,
         name: props.detail.name,
+        completed_flag: props.detail.completed_flag == 1,
     };
 
     const { updateToDoDetailMutation } = useUpdateToDoDetailMutateTask();
@@ -26,12 +27,19 @@ function ToDoDetail(props) {
         const newTimer = setTimeout(() => {
             let data = {
                 ...toDoDetail,
-                title: event.target.value,
+                name: event.target.value,
             };
             updateToDoDetailMutation.mutate(data);
         }, 500);
 
         setTimer(newTimer);
+    };
+    const eventCheckToDoDetail = (event) => {
+        let data = {
+            ...toDoDetail,
+            completed_flag: event.target.checked,
+        };
+        updateToDoDetailMutation.mutate(data);
     };
 
     return (
@@ -46,7 +54,11 @@ function ToDoDetail(props) {
         >
             <ListItemButton>
                 <ListItemIcon>
-                    <Checkbox edge="start" />
+                    <Checkbox 
+                    edge="start"
+                    defaultChecked={props.detail.completed_flag == 1}
+                    onChange={eventCheckToDoDetail}
+                    />
                 </ListItemIcon>
                 <TextField
                     variant="standard"
