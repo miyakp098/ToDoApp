@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Box } from "@mui/system";
 import Navigation from "./Navigation";
-
+import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Example from "../pages/Example";
 import Home from "../pages/Home";
@@ -21,6 +21,7 @@ function Main() {
                             <Route path="/" exact component={Home} />
                         </Switch>
                     </main>
+                    <ReactQueryDevtools></ReactQueryDevtools>
                 </QueryClientProvider>
             </Router>
         </Box>
