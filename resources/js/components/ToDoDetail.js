@@ -9,7 +9,10 @@ import {
     TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useUpdateToDoDetailMutateTask } from "../hooks/ToDoDetail";
+import {
+    useDeleteToDoDetailMutateTask,
+    useUpdateToDoDetailMutateTask,
+} from "../hooks/ToDoDetail";
 
 function ToDoDetail(props) {
     const [timer, setTimer] = useState(null);
@@ -21,6 +24,7 @@ function ToDoDetail(props) {
         to_do_id: props.detail.to_do_id,
     };
 
+    /** 名称更新イベント*/
     const { updateToDoDetailMutation } = useUpdateToDoDetailMutateTask();
     const eventUpdateToDoDetail = (event) => {
         clearTimeout(timer);
@@ -35,6 +39,8 @@ function ToDoDetail(props) {
 
         setTimer(newTimer);
     };
+
+    /** チェックボックス押下イベント*/
     const eventCheckToDoDetail = (event) => {
         let data = {
             ...toDoDetail,
@@ -43,11 +49,21 @@ function ToDoDetail(props) {
         updateToDoDetailMutation.mutate(data);
     };
 
+    /** 解除ボタン押下イベント*/
+    const { deleteToDoDetailMutation } = useDeleteToDoDetailMutateTask();
+    const eventDeleteToDoDetail = (event) => {
+        deleteToDoDetailMutation.mutate(toDoDetail);
+    };
+
     return (
         <ListItem
             key={props.detail.id}
             secondaryAction={
-                <IconButton edge="end" aria-label="delete">
+                <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={eventDeleteToDoDetail}
+                >
                     <Delete />
                 </IconButton>
             }
@@ -55,10 +71,10 @@ function ToDoDetail(props) {
         >
             <ListItemButton>
                 <ListItemIcon>
-                    <Checkbox 
-                    edge="start"
-                    checked={props.detail.completed_flag}
-                    onChange={eventCheckToDoDetail}
+                    <Checkbox
+                        edge="start"
+                        checked={props.detail.completed_flag}
+                        onChange={eventCheckToDoDetail}
                     />
                 </ListItemIcon>
                 <TextField
