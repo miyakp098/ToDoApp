@@ -9,8 +9,12 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ToDoDetail from "./ToDoDetail";
-import { useDeleteToDoMutateTask, useUpdateToDoMutateTask } from "../hooks/ToDo";
-import { Delete } from "@mui/icons-material";
+import {
+    useDeleteToDoMutateTask,
+    useUpdateToDoMutateTask,
+} from "../hooks/ToDo";
+import { AddCircle, Delete } from "@mui/icons-material";
+import { useStoreToDoDetailMutateTask } from "../hooks/ToDoDetail";
 
 function ToDo(props) {
     const [timer, setTimer] = useState(null);
@@ -37,10 +41,16 @@ function ToDo(props) {
     };
 
     /** 削除イベント*/
-    const {deleteToDoMutation} = useDeleteToDoMutateTask();
+    const { deleteToDoMutation } = useDeleteToDoMutateTask();
     const eventDeleteToDo = (event) => {
         deleteToDoMutation.mutate(toDo);
     };
+
+    /** 　ToDoDetail追加イベント*/
+    const {storeToDoDetailMutation} = useStoreToDoDetailMutateTask();
+    const eventStoreToDoDetail = (event) => {
+        storeToDoDetailMutation.mutate(toDo);
+    }
 
     return (
         <Card>
@@ -59,10 +69,18 @@ function ToDo(props) {
                 </List>
             </CardContent>
             <CardActions>
+                <IconButton 
+                edge="start" 
+                area-label="add" 
+                color="primary"
+                onClick={eventStoreToDoDetail}
+                >
+                    <AddCircle />
+                </IconButton>
                 <IconButton
-                edge="end" 
-                area-label="delete"
-                onClick={eventDeleteToDo}
+                    edge="end"
+                    area-label="delete"
+                    onClick={eventDeleteToDo}
                 >
                     <Delete />
                 </IconButton>
